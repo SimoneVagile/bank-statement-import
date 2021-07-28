@@ -262,10 +262,9 @@ class CamtParser(models.AbstractModel):
         account_number = None
         for node in root[0][1:]:
             statement = self.parse_statement(ns, node)
-            if len(statement["transactions"]):
-                if "currency" in statement:
-                    currency = statement.pop("currency")
-                if "account_number" in statement:
-                    account_number = statement.pop("account_number")
-                statements.append(statement)
+            if "currency" in statement:
+                currency = statement.pop("currency")
+            if "account_number" in statement:
+                account_number = statement.pop("account_number")
+            statements.append(statement)
         return currency, account_number, statements
